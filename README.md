@@ -182,7 +182,7 @@ This project is licensed under the MIT License.
 
 **Yash Khobragade**
 - GitHub: [@yas0h00](https://github.com/yas0h00)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/your-profile)
+- LinkedIn: [Yash Kamble](linkedin.com/in/yash-kamble-37b8722a6)
 
 ## 🙏 Acknowledgments
 
@@ -192,4 +192,4 @@ This project is licensed under the MIT License.
 
 ---
 
-**Built with ❤️ by Yash Khobragade**
+**Built with ❤️ by Yash Kamble**
