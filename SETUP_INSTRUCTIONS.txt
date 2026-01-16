@@ -1,0 +1,132 @@
+====================================
+  MONEYWISE FINANCE TRACKER SETUP
+====================================
+
+📦 STEP 1: EXTRACT FILES
+--------------------------
+Extract this ZIP file to your desired location.
+Example: C:\Users\YourName\Desktop\moneywise-finance-tracker
+
+
+🖥️ STEP 2: OPEN COMMAND PROMPT
+--------------------------
+Open Command Prompt (cmd) in Windows
+Navigate to the extracted folder:
+    cd path\to\moneywise-finance-tracker
+
+
+🐍 STEP 3: CREATE VIRTUAL ENVIRONMENT
+--------------------------
+Run this command:
+    python -m venv venv
+
+Then activate it:
+    venv\Scripts\activate.bat
+
+You should see (venv) at the beginning of your command line.
+
+
+📦 STEP 4: INSTALL DEPENDENCIES
+--------------------------
+Run this command:
+    pip install -r requirements.txt
+
+This will install all required packages (Flask, SQLAlchemy, etc.)
+
+
+🚀 STEP 5: RUN THE APPLICATION
+--------------------------
+Run this command:
+    python app.py
+
+You should see:
+    * Running on http://127.0.0.1:5000
+
+
+🌐 STEP 6: OPEN IN BROWSER
+--------------------------
+Open your web browser and go to:
+    http://127.0.0.1:5000
+
+You should see the MoneyWise landing page!
+
+
+✅ STEP 7: CREATE YOUR ACCOUNT
+--------------------------
+1. Click "Get Started Free"
+2. Fill in:
+   - Username
+   - Email
+   - Password (at least 8 characters)
+   - Currency (INR is selected by default)
+3. Click "Create Account"
+4. Login with your credentials
+
+
+🎉 YOU'RE ALL SET!
+--------------------------
+Now you can:
+✓ Add transactions
+✓ Set budgets
+✓ View your dashboard
+✓ Track your finances
+
+
+🐛 TROUBLESHOOTING
+--------------------------
+
+Problem: "python is not recognized"
+Solution: Install Python from python.org
+
+Problem: "No module named 'flask'"
+Solution: Make sure virtual environment is activated
+    venv\Scripts\activate.bat
+    pip install -r requirements.txt
+
+Problem: Can't see CSS/styling
+Solution: Make sure the folder structure is correct:
+    - templates/ folder with all HTML files
+    - static/css/style.css exists
+    - static/js/script.js exists
+
+Problem: "Address already in use"
+Solution: Port 5000 is busy. Stop other Flask apps or:
+    python app.py -p 5001
+
+
+📞 NEED HELP?
+--------------------------
+Check README.md for detailed documentation
+Check the folder structure matches the requirements
+
+
+💡 QUICK COMMANDS
+--------------------------
+To start working:
+    cd moneywise-finance-tracker
+    venv\Scripts\activate.bat
+    python app.py
+
+To stop the server:
+    Press Ctrl + C in the terminal
+
+To deactivate virtual environment:
+    deactivate
+
+
+🎯 PROJECT STRUCTURE
+--------------------------
+moneywise-finance-tracker/
+├── app.py              (Main Flask app)
+├── models.py           (Database models)
+├── requirements.txt    (Dependencies)
+├── templates/          (HTML files)
+│   └── *.html
+├── static/             (CSS & JS)
+│   ├── css/style.css
+│   └── js/script.js
+└── instance/           (Auto-created)
+    └── moneywise.db    (Database)
+
+
+Happy tracking! 💰

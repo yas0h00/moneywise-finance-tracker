@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up - MoneyWise{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <i class="fas fa-user-plus auth-icon"></i>
+                <h2>Create Account</h2>
+                <p>Start your financial journey today</p>
+            </div>
+            
+            <form method="POST" class="auth-form">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i> Username
+                    </label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="form-control" 
+                        required 
+                        autofocus
+                        placeholder="Choose a username"
+                        minlength="3"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Email
+                    </label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form-control" 
+                        required
+                        placeholder="your.email@example.com"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-control" 
+                        required
+                        placeholder="Create a strong password"
+                        minlength="8"
+                    >
+                    <small class="form-text">At least 8 characters</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="currency">
+                        <i class="fas fa-dollar-sign"></i> Currency
+                    </label>
+                    <select id="currency" name="currency" class="form-control">
+                        <option value="USD">USD - US Dollar ($)</option>
+                        <option value="EUR">EUR - Euro (€)</option>
+                        <option value="GBP">GBP - British Pound (£)</option>
+                        <option value="INR" selected>INR - Indian Rupee (₹)</option>
+                        <option value="JPY">JPY - Japanese Yen (¥)</option>
+                        <option value="AUD">AUD - Australian Dollar (A$)</option>
+                        <option value="CAD">CAD - Canadian Dollar (C$)</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

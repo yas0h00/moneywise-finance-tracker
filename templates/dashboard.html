@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - MoneyWise{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Dashboard</h1>
+            <p>{{ month_name }} {{ year }}</p>
+        </div>
+        
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card income">
+                <div class="stat-icon">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Income</h3>
+                    <p class="stat-value">₹{{ "%.2f"|format(total_income) }}</p>
+                </div>
+            </div>
+            
+            <div class="stat-card expense">
+                <div class="stat-icon">
+                    <i class="fas fa-arrow-down"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Expenses</h3>
+                    <p class="stat-value">₹{{ "%.2f"|format(total_expenses) }}</p>
+                </div>
+            </div>
+            
+            <div class="stat-card balance {% if balance >= 0 %}positive{% else %}negative{% endif %}">
+                <div class="stat-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Balance</h3>
+                    <p class="stat-value">₹{{ "%.2f"|format(balance) }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Charts and Recent Transactions -->
+        <div class="dashboard-grid">
+            <!-- Expense Breakdown Chart -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-pie"></i> Expense Breakdown</h3>
+                </div>
+                <div class="card-body">
+                    {% if category_breakdown %}
+                        <canvas id="expenseChart"></canvas>
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-chart-pie"></i>
+                            <p>No expenses this month</p>
+                            <a href="{{ url_for('transactions') }}" class="btn btn-primary">
+                                Add Transaction
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Recent Transactions -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-history"></i> Recent Transactions</h3>
+                    <a href="{{ url_for('transactions') }}" class="btn btn-sm">View All</a>
+                </div>
+                <div class="card-body">
+                    {% if recent_transactions %}
+                        <div class="transactions-list">
+                            {% for transaction in recent_transactions %}
+                            <div class="transaction-item">
+                                <div class="transaction-icon {{ transaction.type }}">
+                                    {{ transaction.category.icon }}
+                                </div>
+                                <div class="transaction-details">
+                                    <p class="transaction-category">{{ transaction.category.name }}</p>
+                                    <p class="transaction-description">{{ transaction.description or 'No description' }}</p>
+                                    <small class="transaction-date">{{ transaction.date.strftime('%b %d, %Y') }}</small>
+                                </div>
+                                <div class="transaction-amount {{ transaction.type }}">
+                                    {% if transaction.type == 'income' %}+{% else %}-{% endif %}
+                                    ₹{{ "%.2f"|format(transaction.amount) }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-receipt"></i>
+                            <p>No transactions yet</p>
+                            <a href="{{ url_for('transactions') }}" class="btn btn-primary">
+                                Add Your First Transaction
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+    {% if category_breakdown %}
+    // Expense Breakdown Pie Chart
+    const ctx = document.getElementById('expenseChart');
+    
+    const chartData = {
+        labels: [
+            {% for item in category_breakdown %}
+            '{{ item.name }}',
+            {% endfor %}
+        ],
+        datasets: [{
+            data: [
+                {% for item in category_breakdown %}
+                {{ item.total }},
+                {% endfor %}
+            ],
+            backgroundColor: [
+                {% for item in category_breakdown %}
+                '{{ item.color }}',
+                {% endfor %}
+            ],
+            borderWidth: 2,
+            borderColor: '#fff'
+        }]
+    };
+    
+    new Chart(ctx, {
+        type: 'pie',
+        data: chartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            label += '₹' + context.parsed.toFixed(2);
+                            return label;
+                        }
+                    }
+                }
+            }
+        }
+    });
+    {% endif %}
+</script>
+{% endblock %}

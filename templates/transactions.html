@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block title %}Transactions - MoneyWise{% endblock %}
+
+{% block content %}
+<div class="transactions-page">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1><i class="fas fa-exchange-alt"></i> Transactions</h1>
+            <button class="btn btn-primary" onclick="openAddModal()">
+                <i class="fas fa-plus"></i> Add Transaction
+            </button>
+        </div>
+        
+        <!-- Filters -->
+        <div class="filters-card">
+            <form method="GET" class="filters-form">
+                <div class="filter-group">
+                    <label>Type</label>
+                    <select name="type" class="form-control">
+                        <option value="">All</option>
+                        <option value="income" {% if request.args.get('type') == 'income' %}selected{% endif %}>Income</option>
+                        <option value="expense" {% if request.args.get('type') == 'expense' %}selected{% endif %}>Expense</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Category</label>
+                    <select name="category" class="form-control">
+                        <option value="">All Categories</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}" {% if request.args.get('category') == category.id|string %}selected{% endif %}>
+                            {{ category.icon }} {{ category.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-secondary">
+                    <i class="fas fa-filter"></i> Filter
+                </button>
+                
+                <a href="{{ url_for('transactions') }}" class="btn btn-outline">
+                    <i class="fas fa-times"></i> Clear
+                </a>
+            </form>
+        </div>
+        
+        <!-- Transactions Table -->
+        <div class="card">
+            <div class="card-body">
+                {% if transactions %}
+                <div class="table-responsive">
+                    <table class="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for transaction in transactions %}
+                            <tr>
+                                <td>{{ transaction.date.strftime('%b %d, %Y') }}</td>
+                                <td>
+                                    <span class="category-badge" style="background-color: {{ transaction.category.color }}20; color: {{ transaction.category.color }}">
+                                        {{ transaction.category.icon }} {{ transaction.category.name }}
+                                    </span>
+                                </td>
+                                <td>{{ transaction.description or '-' }}</td>
+                                <td>
+                                    <span class="type-badge {{ transaction.type }}">
+                                        {{ transaction.type.capitalize() }}
+                                    </span>
+                                </td>
+                                <td class="amount {{ transaction.type }}">
+                                    {% if transaction.type == 'income' %}+{% else %}-{% endif %}
+                                    ₹{{ "%.2f"|format(transaction.amount) }}
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon" onclick="editTransaction({{ transaction.id }})">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <form method="POST" action="{{ url_for('delete_transaction', id=transaction.id) }}" style="display: inline;">
+                                            <button type="submit" class="btn-icon delete" onclick="return confirm('Delete this transaction?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-receipt"></i>
+                    <h3>No Transactions Found</h3>
+                    <p>Start tracking your finances by adding your first transaction</p>
+                    <button class="btn btn-primary" onclick="openAddModal()">
+                        <i class="fas fa-plus"></i> Add Transaction
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Transaction Modal -->
+<div id="addModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fas fa-plus-circle"></i> Add Transaction</h2>
+            <button class="close-modal" onclick="closeAddModal()">&times;</button>
+        </div>
+        
+        <form method="POST" action="{{ url_for('add_transaction') }}">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Type *</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="type" value="income" required onchange="filterCategories('income')">
+                            <span class="radio-custom income">
+                                <i class="fas fa-arrow-up"></i> Income
+                            </span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="type" value="expense" checked required onchange="filterCategories('expense')">
+                            <span class="radio-custom expense">
+                                <i class="fas fa-arrow-down"></i> Expense
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="category_id">Category *</label>
+                    <select id="category_id" name="category_id" class="form-control" required>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}" data-type="{{ category.type }}" {% if category.type == 'expense' %}{% else %}style="display:none"{% endif %}>
+                            {{ category.icon }} {{ category.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">Amount *</label>
+                    <input type="number" id="amount" name="amount" class="form-control" step="0.01" min="0.01" required placeholder="0.00">
+                </div>
+                
+                <div class="form-group">
+                    <label for="date">Date *</label>
+                    <input type="date" id="date" name="date" class="form-control" required value="{{ today }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" class="form-control" rows="3" placeholder="Optional notes..."></textarea>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeAddModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Transaction
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('date').value = today;
+    
+    // Modal functions
+    function openAddModal() {
+        document.getElementById('addModal').style.display = 'flex';
+        filterCategories('expense'); // Default to expense
+    }
+    
+    function closeAddModal() {
+        document.getElementById('addModal').style.display = 'none';
+    }
+    
+    // Filter categories based on transaction type
+    function filterCategories(type) {
+        const options = document.querySelectorAll('#category_id option');
+        options.forEach(option => {
+            if (option.dataset.type === type) {
+                option.style.display = 'block';
+                if (option.style.display === 'block' && !document.getElementById('category_id').value) {
+                    option.selected = true;
+                }
+            } else {
+                option.style.display = 'none';
+            }
+        });
+    }
+    
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        const modal = document.getElementById('addModal');
+        if (event.target === modal) {
+            closeAddModal();
+        }
+    }
+</script>
+{% endblock %}

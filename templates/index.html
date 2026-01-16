@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}MoneyWise - Take Control of Your Finances{% endblock %}
+
+{% block content %}
+<div class="landing-page">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Take Control of Your <span class="highlight">Finances</span></h1>
+                <p class="lead">Track expenses, set budgets, and achieve your financial goals with MoneyWise</p>
+                
+                <div class="hero-buttons">
+                    <a href="{{ url_for('signup') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-user-plus"></i> Get Started Free
+                    </a>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline btn-lg">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <i class="fas fa-chart-line hero-icon"></i>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose MoneyWise?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Secure & Private</h3>
+                    <p>Your financial data is encrypted and protected with industry-standard security</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Visual Insights</h3>
+                    <p>Beautiful charts and graphs help you understand your spending patterns</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3>Budget Tracking</h3>
+                    <p>Set budgets for different categories and stay on track with smart alerts</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-export"></i>
+                    </div>
+                    <h3>Export Data</h3>
+                    <p>Download your financial data as CSV or PDF for your records</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Access your finances anywhere, on any device</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3>Unlimited Transactions</h3>
+                    <p>Track as many transactions as you want, no limits</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Take Control?</h2>
+            <p>Join thousands of users managing their finances smarter</p>
+            <a href="{{ url_for('signup') }}" class="btn btn-primary btn-lg">
+                Start Tracking Now <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+</div>
+{% endblock %}
