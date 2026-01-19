@@ -69,5 +69,5 @@ function scrollToTop() {
 }
 
 // Console message
-console.log('%c💰 MoneyWise Finance Tracker', 'color: #6366F1; font-size: 20px; font-weight: bold;');
-console.log('%cBuilt with ❤️ by Yash Khobragade', 'color: #10B981; font-size: 14px;');
+console.log('%cðŸ’° MoneyWise Finance Tracker', 'color: #6366F1; font-size: 20px; font-weight: bold;');
+console.log('%cBuilt with â¤ï¸ by Yash Kamble', 'color: #10B981; font-size: 14px;');

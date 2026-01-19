@@ -52,7 +52,7 @@
                             <i class="fas fa-wallet stat-icon"></i>
                             <div class="stat-details">
                                 <p class="stat-label">Current Balance</p>
-                                <p class="stat-value">₹{{ "%.2f"|format(current_user.get_balance()) }}</p>
+                                <p class="stat-value">â‚¹{{ "%.2f"|format(current_user.get_balance()) }}</p>
                             </div>
                         </div>
                         
@@ -60,7 +60,7 @@
                             <i class="fas fa-arrow-up stat-icon income"></i>
                             <div class="stat-details">
                                 <p class="stat-label">Total Income (All Time)</p>
-                                <p class="stat-value income">₹{{ "%.2f"|format(current_user.get_total_income()) }}</p>
+                                <p class="stat-value income">â‚¹{{ "%.2f"|format(current_user.get_total_income()) }}</p>
                             </div>
                         </div>
                         
@@ -68,7 +68,7 @@
                             <i class="fas fa-arrow-down stat-icon expense"></i>
                             <div class="stat-details">
                                 <p class="stat-label">Total Expenses (All Time)</p>
-                                <p class="stat-value expense">₹{{ "%.2f"|format(current_user.get_total_expenses()) }}</p>
+                                <p class="stat-value expense">â‚¹{{ "%.2f"|format(current_user.get_total_expenses()) }}</p>
                             </div>
                         </div>
                         
@@ -184,10 +184,10 @@
                     <label for="currency">Currency *</label>
                     <select id="currency" name="currency" class="form-control" required>
                         <option value="USD" {% if current_user.currency == 'USD' %}selected{% endif %}>USD - US Dollar ($)</option>
-                        <option value="EUR" {% if current_user.currency == 'EUR' %}selected{% endif %}>EUR - Euro (€)</option>
-                        <option value="GBP" {% if current_user.currency == 'GBP' %}selected{% endif %}>GBP - British Pound (£)</option>
-                        <option value="INR" {% if current_user.currency == 'INR' %}selected{% endif %}>INR - Indian Rupee (₹)</option>
-                        <option value="JPY" {% if current_user.currency == 'JPY' %}selected{% endif %}>JPY - Japanese Yen (¥)</option>
+                        <option value="EUR" {% if current_user.currency == 'EUR' %}selected{% endif %}>EUR - Euro (â‚¬)</option>
+                        <option value="GBP" {% if current_user.currency == 'GBP' %}selected{% endif %}>GBP - British Pound (Â£)</option>
+                        <option value="INR" {% if current_user.currency == 'INR' %}selected{% endif %}>INR - Indian Rupee (â‚¹)</option>
+                        <option value="JPY" {% if current_user.currency == 'JPY' %}selected{% endif %}>JPY - Japanese Yen (Â¥)</option>
                         <option value="AUD" {% if current_user.currency == 'AUD' %}selected{% endif %}>AUD - Australian Dollar (A$)</option>
                         <option value="CAD" {% if current_user.currency == 'CAD' %}selected{% endif %}>CAD - Canadian Dollar (C$)</option>
                     </select>

@@ -212,15 +212,15 @@ def create_default_categories(user_id):
         {'name': 'Utilities', 'icon': '⚡', 'color': '#B91C1C'},
         {'name': 'Groceries', 'icon': '🛒', 'color': '#991B1B'},
         {'name': 'Entertainment', 'icon': '🎬', 'color': '#F59E0B'},
-        {'name': 'Shopping', 'icon': '👕', 'color': '#FBBF24'},
-        {'name': 'Healthcare', 'icon': '🏥', 'color': '#F59E0B'},
+        {'name': 'Shopping', 'icon': '🛍️', 'color': '#FBBF24'},
+        {'name': 'Healthcare', 'icon': '💊', 'color': '#F59E0B'},
         {'name': 'Education', 'icon': '📚', 'color': '#D97706'},
         {'name': 'Bills & Subscriptions', 'icon': '💳', 'color': '#B45309'},
         {'name': 'Travel', 'icon': '✈️', 'color': '#6366F1'},
         {'name': 'Fitness', 'icon': '💪', 'color': '#8B5CF6'},
         {'name': 'Personal Care', 'icon': '💄', 'color': '#EC4899'},
         {'name': 'Gifts & Donations', 'icon': '🎁', 'color': '#F472B6'},
-        {'name': 'Other Expenses', 'icon': '📱', 'color': '#94A3B8'},
+        {'name': 'Other Expenses', 'icon': '📁', 'color': '#94A3B8'},
     ]
     
     categories = []

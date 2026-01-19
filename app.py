@@ -264,30 +264,85 @@ def categories():
 
 
 # Budgets
-@app.route('/budgets')
+# AFTER (accepts both GET and POST):
+@app.route('/budgets', methods=['GET', 'POST'])
 @login_required
 def budgets():
-    # Get current month
-    today = date.today()
-    current_month_date = date(today.year, today.month, 1)
+    if request.method == 'POST':
+        # Handle budget creation
+        category_id = request.form.get('category_id')
+        amount = request.form.get('amount')
+        alert_threshold = request.form.get('alert_threshold', 80)
+        
+        # Create new budget
+        from datetime import date
+        current_month = date.today().replace(day=1)
+        
+        new_budget = Budget(
+            user_id=current_user.id,
+            category_id=category_id,
+            amount=amount,
+            month=current_month,
+            alert_threshold=alert_threshold
+        )
+        
+        db.session.add(new_budget)
+        db.session.commit()
+        
+        flash('Budget created successfully!', 'success')
+        return redirect(url_for('budgets'))
     
-    # Get budgets for current month
-    budgets_list = Budget.query.filter_by(
+    # GET request - display budgets
+    from datetime import date
+    current_month = date.today().replace(day=1)
+    
+    budgets = Budget.query.filter_by(
         user_id=current_user.id,
-        month=current_month_date
+        month=current_month
     ).all()
     
-    # Get all expense categories
-    expense_categories = Category.query.filter_by(
+    # Get expense categories for the dropdown
+    categories = Category.query.filter_by(
         user_id=current_user.id,
         type='expense'
     ).all()
     
-    return render_template('budgets.html',
-                         budgets=budgets_list,
-                         categories=expense_categories,
-                         month_name=calendar.month_name[today.month],
-                         year=today.year)
+    return render_template(
+        'budgets.html',
+        budgets=budgets,
+        categories=categories,
+        month_name=current_month.strftime('%B'),
+        year=current_month.year
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Profile

@@ -18,7 +18,7 @@
             <div class="budget-card">
                 <div class="budget-header">
                     <div class="budget-category">
-                        <span class="category-icon" style="background: {{ budget.category.color }}20">
+                        <span class="category-icon" style="background-color: {{ budget.category.color }}20;">
                             {{ budget.category.icon }}
                         </span>
                         <h3>{{ budget.category.name }}</h3>
@@ -32,7 +32,7 @@
                 <div class="budget-progress">
                     <div class="progress-bar">
                         <div class="progress-fill {{ budget.get_status() }}" 
-                             style="width: {{ [budget.get_percentage_used(), 100]|min }}%">
+                             style="width: {{[budget.get_percentage_used(), 100]|min}}%">
                         </div>
                     </div>
                     <div class="progress-info">
@@ -98,7 +98,7 @@
             <button class="close-modal" onclick="closeBudgetModal()">&times;</button>
         </div>
         
-        <form method="POST" action="#">
+        <form method="POST" action="{{ url_for('budgets') }}">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="category">Category *</label>
