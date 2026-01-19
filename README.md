@@ -410,7 +410,7 @@ This project is licensed under the MIT License.
 
 **Yash Khobragade**
 - GitHub: [@yas0h00](https://github.com/yas0h00)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/your-profile)
+- LinkedIn: [Yash Kamble](linkedin.com/in/yash-kamble-37b8722a6)
 
 ## 🙏 Acknowledgments
 
@@ -444,6 +444,10 @@ This project is licensed under the MIT License.
 
 ---
 
+<<<<<<< HEAD
 **Built with ❤️ using Flask**
 
 For questions or issues, please open an issue on GitHub.
+=======
+**Built with ❤️ by Yash Kamble**
+>>>>>>> e80a6d5d56c000448724f89e75c70790a161cd18
