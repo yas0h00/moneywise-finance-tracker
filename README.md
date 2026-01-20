@@ -444,10 +444,10 @@ This project is licensed under the MIT License.
 
 ---
 
-<<<<<<< HEAD
+
 **Built with ❤️ using Flask**
 
 For questions or issues, please open an issue on GitHub.
 =======
 **Built with ❤️ by Yash Kamble**
->>>>>>> e80a6d5d56c000448724f89e75c70790a161cd18
+
